@@ -13,19 +13,28 @@ public class TestMain {
     Random rng = new SecureRandom();
     System.out.println(deck);
 
-
     deck.shuffle(rng);
     System.out.println(deck);
-
 
 //    for (Card card : deck ) {
 //      System.out.println(card);
 //    }
 
-
     deck.sort();
     System.out.println(deck);
 
+    class RankFirstComparator implements Comparator<Card> {
+
+
+      @Override
+      public int compare(Card card1, Card card2) {
+        int comparison = card1.getRank().compareTo(card2.getRank());
+        if (comparison == 0) {
+          comparison = card1.getSuit().compareTo(card2.getSuit());
+        }
+        return comparison;
+      }
+    }
 
     deck.sort(new RankFirstComparator());
     System.out.println(deck);
@@ -34,16 +43,4 @@ public class TestMain {
   }
 
 
-  static class RankFirstComparator implements Comparator<Card> {
-
-
-    @Override
-    public int compare(Card card1, Card card2) {
-      int comparison = card1.getRank().compareTo(card2.getRank());
-      if (comparison == 0) {
-        comparison = card1.getSuit().compareTo(card2.getSuit());
-      }
-      return comparison;
-    }
-  }
 }
